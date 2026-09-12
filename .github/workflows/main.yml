@@ -14,7 +14,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
 
       - name: Setup Java
@@ -27,10 +27,13 @@ jobs:
         uses: android-actions/setup-android@v3
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Generate Android project
         run: npx expo prebuild --platform android --non-interactive
+
+      - name: Make Gradle executable
+        run: chmod +x android/gradlew
 
       - name: Build APK
         working-directory: android
